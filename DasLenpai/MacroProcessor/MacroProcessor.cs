@@ -2,16 +2,17 @@
 using DasLenpai.MacroProcessor.Macros;
 using DasLenpai.NodeSystem.Nodes;
 using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace DasLenpai.MacroProcessor
 {
     public class MacroProcessor
     {
-        private readonly ImmutableDictionary<Symbol, CallMacro> CallMacros;
-        private readonly ImmutableDictionary<Symbol, LiteralMacro> LiteralMacros;
-        private readonly ImmutableDictionary<Symbol, IdentifierMacro> IdentifierMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<CallMacro>> CallMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<LiteralMacro>> LiteralMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<IdentifierMacro>> IdentifierMacros;
 
-        internal MacroProcessor(ImmutableDictionary<Symbol, CallMacro> callMacros, ImmutableDictionary<Symbol, LiteralMacro> literalMacros, ImmutableDictionary<Symbol, IdentifierMacro> identifierMacros)
+        internal MacroProcessor(ImmutableDictionary<Symbol, ImmutableList<CallMacro>> callMacros, ImmutableDictionary<Symbol, ImmutableList<LiteralMacro>> literalMacros, ImmutableDictionary<Symbol, ImmutableList<IdentifierMacro>> identifierMacros)
         {
             CallMacros = callMacros;
             LiteralMacros = literalMacros;
@@ -34,69 +35,96 @@ namespace DasLenpai.MacroProcessor
         {
             INode result = node.WithArgs(Process(node.Args));
 
-            IMacro macro = null;
-            if(result.Kind == NodeKind.Call)
+            if (result.Kind == NodeKind.Call)
             {
-                if(CallMacros.ContainsKey(result.Symbol))
+                if (CallMacros.ContainsKey(result.Symbol))
                 {
-                    macro = CallMacros[result.Symbol];
-                }
-            } else if(result.Kind == NodeKind.Literal)
-            {
-                if(LiteralMacros.ContainsKey(result.Symbol))
-                {
-                    macro = LiteralMacros[result.Symbol];
-                }
-            } else if(result.Kind == NodeKind.Identifier)
-            {
-                if(IdentifierMacros.ContainsKey(result.Symbol))
-                {
-                    macro = LiteralMacros[result.Symbol];
+                    result = IterateMacros(result, CallMacros[result.Symbol].Cast<IMacro>());
                 }
             }
-
-            if(macro != null)
+            else if (result.Kind == NodeKind.Literal)
             {
-                result = macro.Callback(result);
-                if(macro.ReProcess)
+                if (LiteralMacros.ContainsKey(result.Symbol))
                 {
-                    result = Process(result);
+                    result = IterateMacros(result, LiteralMacros[result.Symbol].Cast<IMacro>());
+                }
+            }
+            else if (result.Kind == NodeKind.Identifier)
+            {
+                if (IdentifierMacros.ContainsKey(result.Symbol))
+                {
+                    result = IterateMacros(result, IdentifierMacros[result.Symbol].Cast<IMacro>());
                 }
             }
 
             return result;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private INode IterateMacros(INode node, IEnumerable<IMacro> macros)
+        {
+            var n = node;
+            foreach (var m in macros)
+            {
+                n = m.Callback(n);
+                if (n.Symbol != node.Symbol)
+                {
+                    return Process(n);
+                }
+                else if (m.ReProcess)
+                {
+                    n = Process(n);
+                    if (n.Symbol != node.Symbol)
+                    {
+                        return Process(n);
+                    }
+                }
+            }
+            return n;
+        }
     }
 
     public class MacroProcessorBuilder
     {
-        private readonly ImmutableDictionary<Symbol, CallMacro>.Builder CallMacros;
-        private readonly ImmutableDictionary<Symbol, LiteralMacro>.Builder LiteralMacros;
-        private readonly ImmutableDictionary<Symbol, IdentifierMacro>.Builder IdentifierMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<CallMacro>.Builder>.Builder CallMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<LiteralMacro>.Builder>.Builder LiteralMacros;
+        private readonly ImmutableDictionary<Symbol, ImmutableList<IdentifierMacro>.Builder>.Builder IdentifierMacros;
 
         internal MacroProcessorBuilder()
         {
-            CallMacros = ImmutableDictionary.CreateBuilder<Symbol, CallMacro>();
-            LiteralMacros = ImmutableDictionary.CreateBuilder<Symbol, LiteralMacro>();
-            IdentifierMacros = ImmutableDictionary.CreateBuilder<Symbol, IdentifierMacro>();
+            CallMacros = ImmutableDictionary.CreateBuilder<Symbol, ImmutableList<CallMacro>.Builder>();
+            LiteralMacros = ImmutableDictionary.CreateBuilder<Symbol, ImmutableList<LiteralMacro>.Builder>();
+            IdentifierMacros = ImmutableDictionary.CreateBuilder<Symbol, ImmutableList<IdentifierMacro>.Builder>();
         }
 
         public void AddMacro(IMacro macro)
         {
-            if(macro.Kind == MacroKind.Call)
+            if (macro.Kind == MacroKind.Call)
             {
-                CallMacros.Add(macro.Symbol, (CallMacro)macro);
+                if (!CallMacros.ContainsKey(macro.Symbol))
+                {
+                    CallMacros[macro.Symbol] = ImmutableList.CreateBuilder<CallMacro>();
+                }
+                CallMacros[macro.Symbol].Add((CallMacro)macro);
             }
             else if (macro.Kind == MacroKind.Literal)
             {
-                LiteralMacros.Add(macro.Symbol, (LiteralMacro)macro);
+                if (!LiteralMacros.ContainsKey(macro.Symbol))
+                {
+                    LiteralMacros[macro.Symbol] = ImmutableList.CreateBuilder<LiteralMacro>();
+                }
+                LiteralMacros[macro.Symbol].Add((LiteralMacro)macro);
             }
             else if (macro.Kind == MacroKind.Identifier)
             {
-                IdentifierMacros.Add(macro.Symbol, (IdentifierMacro)macro);
+                if (!IdentifierMacros.ContainsKey(macro.Symbol))
+                {
+                    IdentifierMacros[macro.Symbol] = ImmutableList.CreateBuilder<IdentifierMacro>();
+                }
+                IdentifierMacros[macro.Symbol].Add((IdentifierMacro)macro);
             }
         }
 
-        public MacroProcessor ToProcessor() => new MacroProcessor(CallMacros.ToImmutable(), LiteralMacros.ToImmutable(), IdentifierMacros.ToImmutable());
+        public MacroProcessor ToProcessor() => new MacroProcessor(CallMacros.ToImmutableDictionary(_ => _.Key, _ => _.Value.ToImmutable()), LiteralMacros.ToImmutableDictionary(_ => _.Key, _ => _.Value.ToImmutable()), IdentifierMacros.ToImmutableDictionary(_ => _.Key, _ => _.Value.ToImmutable()));
     }
 }
