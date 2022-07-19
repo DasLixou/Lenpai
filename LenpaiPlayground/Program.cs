@@ -17,18 +17,9 @@ public static class Playground
 {
     public static void Main()
     {
-        /*var node = Lenpai.Call(Symbols.PlusEquals, Lenpai.List(
+        var node = Lenpai.Call(Symbols.PlusEquals, Lenpai.List(
             Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt)
-            ), style: NodeStyle.BinaryOperator);*/
-
-        var node = Lenpai.Call(Symbols.EntryPoint, style: NodeStyle.Block);
-
-        for (int i = 0; i < 1000; i++)
-        {
-            node = node.PlusArg(Lenpai.Call(Symbols.PlusEquals, Lenpai.List(
-            Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt)
-            ), style: NodeStyle.BinaryOperator));
-        }
+            ), style: NodeStyle.BinaryOperator);
 
         var proBuilder = Lenpai.MacroProcessor();
         proBuilder.AddMacro(Lenpai.CallMacro(Symbols.PlusEquals, (node) =>
