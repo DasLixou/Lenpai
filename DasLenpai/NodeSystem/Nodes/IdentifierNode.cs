@@ -13,19 +13,22 @@ namespace DasLenpai.NodeSystem.Nodes
         public ImmutableList<INode> Attrs { get; }
         public CodeRange Range { get; }
         public NodeStyle Style { get; }
+        public INode Parent { get; }
 
-        internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style)
+        internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style, INode parent)
         {
             Symbol = type;
             Attrs = attrs;
             Range = range;
             Style = style;
+            Parent = parent;
         }
 
-        public INode WithSymbol(Symbol symbol) => new IdentifierNode(symbol, Attrs, Range, Style);
-        public INode WithAttrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs, Range, Style);
-        public INode WithRange(CodeRange range) => new IdentifierNode(Symbol, Attrs, range, Style);
-        public INode WithStyle(NodeStyle style) => new IdentifierNode(Symbol, Attrs, Range, style);
+        public INode WithSymbol(Symbol symbol) => new IdentifierNode(symbol, Attrs, Range, Style, Parent);
+        public INode WithAttrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs.ConvertAll(_ => _.WithParent(this)), Range, Style, Parent);
+        public INode WithRange(CodeRange range) => new IdentifierNode(Symbol, Attrs, range, Style, Parent);
+        public INode WithStyle(NodeStyle style) => new IdentifierNode(Symbol, Attrs, Range, style, Parent);
+        public INode WithParent(INode parent) => new IdentifierNode(Symbol, Attrs, Range, Style, parent);
 
         public override string ToString()
         {

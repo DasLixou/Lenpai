@@ -13,6 +13,7 @@ namespace DasLenpai.NodeSystem.Nodes
         public virtual Symbol Type { get { return Symbol; } }
         public virtual CodeRange Range { get { return CodeRange.Missing; } }
         public virtual NodeStyle Style { get { return NodeStyle.Default; } }
+        public virtual INode Parent { get { return Lenpai.Missing; } }
 
         public virtual INode WithSymbol(Symbol symbol) { return this; }
         public virtual INode WithArgs(ImmutableList<INode> args) { return this; }
@@ -26,6 +27,7 @@ namespace DasLenpai.NodeSystem.Nodes
         public virtual INode WithRange(CodeRange range) { return this; }
         public virtual INode WithStyle(NodeStyle style) { return this; }
         public virtual INode PlusStyle(NodeStyle style) { return WithStyle(Style | style); }
+        public virtual INode WithParent(INode parent) { return this; }
     }
 
     public enum NodeKind: byte
