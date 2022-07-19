@@ -19,16 +19,16 @@ namespace DasLenpai.NodeSystem.Nodes
         internal CallNode(Symbol symbol, ImmutableList<INode> args, ImmutableList<INode> attrs, CodeRange range, NodeStyle style, INode parent)
         {
             Symbol = symbol;
-            Args = args;
-            Attrs = attrs;
+            Args = args.ConvertAll(_ => _.WithParent(this));
+            Attrs = attrs.ConvertAll(_ => _.WithParent(this));
             Range = range;
             Style = style;
             Parent = parent;
         }
 
         public INode WithSymbol(Symbol symbol) => new CallNode(symbol, Args, Attrs, Range, Style, Parent);
-        public INode WithArgs(ImmutableList<INode> args) => new CallNode(Symbol, args.ConvertAll(_ => _.WithParent(this)), Attrs, Range, Style, Parent);
-        public INode WithAttrs(ImmutableList<INode> attrs) => new CallNode(Symbol, Args, attrs.ConvertAll(_ => _.WithParent(this)), Range, Style, Parent);
+        public INode WithArgs(ImmutableList<INode> args) => new CallNode(Symbol, args, Attrs, Range, Style, Parent);
+        public INode WithAttrs(ImmutableList<INode> attrs) => new CallNode(Symbol, Args, attrs, Range, Style, Parent);
         public INode WithRange(CodeRange range) => new CallNode(Symbol, Args, Attrs, range, Style, Parent);
         public INode WithStyle(NodeStyle style) => new CallNode(Symbol, Args, Attrs, Range, style, Parent);
         public INode WithParent(INode parent) => new CallNode(Symbol, Args, Attrs, Range, Style, parent);

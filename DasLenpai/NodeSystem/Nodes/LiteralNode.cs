@@ -20,7 +20,7 @@ namespace DasLenpai.NodeSystem.Nodes
         {
             Value = value;
             Symbol = type;
-            Attrs = attrs;
+            Attrs = attrs.ConvertAll(_ => _.WithParent(this));
             Range = range;
             Style = style;
             Parent = parent;
@@ -28,7 +28,7 @@ namespace DasLenpai.NodeSystem.Nodes
 
         public INode WithSymbol(Symbol symbol) => new LiteralNode(Value, symbol, Attrs, Range, Style, Parent);
         public INode WithValue(object? value) => new LiteralNode(value, Symbol, Attrs, Range, Style, Parent);
-        public INode WithAttrs(ImmutableList<INode> attrs) => new LiteralNode(Value, Symbol, attrs.ConvertAll(_ => _.WithParent(this)), Range, Style, Parent);
+        public INode WithAttrs(ImmutableList<INode> attrs) => new LiteralNode(Value, Symbol, attrs, Range, Style, Parent);
         public INode WithRange(CodeRange range) => new LiteralNode(Value, Symbol, Attrs, range, Style, Parent);
         public INode WithStyle(NodeStyle style) => new LiteralNode(Value, Symbol, Attrs, Range, style, Parent);
         public INode WithParent(INode parent) => new LiteralNode(Value, Symbol, Attrs, Range, Style, parent);

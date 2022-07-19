@@ -19,7 +19,7 @@ namespace DasLenpai.CodeAnalysis
             return new Symbol(value);
         }
 
-        public override string ToString() => Name;
+        public override string ToString() => this != Missing ? Name : "! MISSING !";
 
         public bool Equals(Symbol other) => ReferenceEquals(Name, other.Name);
         public static bool operator ==(Symbol left, Symbol right) => ReferenceEquals(left.Name, right.Name);

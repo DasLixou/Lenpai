@@ -18,14 +18,14 @@ namespace DasLenpai.NodeSystem.Nodes
         internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style, INode parent)
         {
             Symbol = type;
-            Attrs = attrs;
+            Attrs = attrs.ConvertAll(_ => _.WithParent(this));
             Range = range;
             Style = style;
             Parent = parent;
         }
 
         public INode WithSymbol(Symbol symbol) => new IdentifierNode(symbol, Attrs, Range, Style, Parent);
-        public INode WithAttrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs.ConvertAll(_ => _.WithParent(this)), Range, Style, Parent);
+        public INode WithAttrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs, Range, Style, Parent);
         public INode WithRange(CodeRange range) => new IdentifierNode(Symbol, Attrs, range, Style, Parent);
         public INode WithStyle(NodeStyle style) => new IdentifierNode(Symbol, Attrs, Range, style, Parent);
         public INode WithParent(INode parent) => new IdentifierNode(Symbol, Attrs, Range, Style, parent);
