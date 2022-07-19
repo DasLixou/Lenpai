@@ -1,6 +1,7 @@
 ﻿using DasLenpai.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DasLenpai.NodeSystem.Nodes
@@ -15,20 +16,25 @@ namespace DasLenpai.NodeSystem.Nodes
         public NodeStyle Style { get; }
         public INode Parent { get; }
 
-        internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style, INode parent)
+        internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style, INode parent, bool convertParents)
         {
             Symbol = type;
-            Attrs = attrs.ConvertAll(_ => _.WithParent(this));
+            Attrs = convertParents ? attrs.ConvertAll(_ => _.WithParent(this)) : attrs;
             Range = range;
             Style = style;
             Parent = parent;
         }
 
-        public INode WithSymbol(Symbol symbol) => new IdentifierNode(symbol, Attrs, Range, Style, Parent);
-        public INode WithAttrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs, Range, Style, Parent);
-        public INode WithRange(CodeRange range) => new IdentifierNode(Symbol, Attrs, range, Style, Parent);
-        public INode WithStyle(NodeStyle style) => new IdentifierNode(Symbol, Attrs, Range, style, Parent);
-        public INode WithParent(INode parent) => new IdentifierNode(Symbol, Attrs, Range, Style, parent);
+        public INode WithSymbol(Symbol symbol) => new IdentifierNode(symbol, Attrs, Range, Style, Parent, false);
+        public INode WithAttrs(ImmutableList<INode> attrs) => _Attrs(attrs.ConvertAll(_ => _.WithParent(this)));
+        public INode PlusAttrs(ImmutableList<INode> attrs) => _Attrs(Attrs.AddRange(attrs.ConvertAll(_ => _.WithParent(this))));
+        public INode PlusAttr(INode attr) => _Attrs(Attrs.Add(attr.WithParent(this)));
+        public INode WithRange(CodeRange range) => new IdentifierNode(Symbol, Attrs, range, Style, Parent, false);
+        public INode WithStyle(NodeStyle style) => new IdentifierNode(Symbol, Attrs, Range, style, Parent, false);
+        public INode WithParent(INode parent) => new IdentifierNode(Symbol, Attrs, Range, Style, parent, false);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private INode _Attrs(ImmutableList<INode> attrs) => new IdentifierNode(Symbol, attrs, Range, Style, Parent, false);
 
         public override string ToString()
         {
