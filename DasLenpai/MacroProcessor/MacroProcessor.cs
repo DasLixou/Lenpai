@@ -67,17 +67,17 @@ namespace DasLenpai.MacroProcessor
             foreach (var m in macros)
             {
                 n = m.Callback(n);
-                if (n.Symbol != node.Symbol)
+                if (m.ReProcess)
                 {
-                    return Process(n);
-                }
-                else if (m.ReProcess)
-                {
-                    n = Process(n);
                     if (n.Symbol != node.Symbol)
                     {
                         return Process(n);
                     }
+                    n = Process(n);
+                }
+                else if (n.Symbol != node.Symbol)
+                {
+                    break;
                 }
             }
             return n;
