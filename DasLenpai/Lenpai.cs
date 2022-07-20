@@ -15,15 +15,15 @@ namespace DasLenpai
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INode Call(Symbol? symbol = null, ImmutableList<INode>? args = null, ImmutableList<INode>? attrs = null, CodeRange? range = null, NodeStyle style = NodeStyle.Default)
-            => new CallNode(symbol ?? Symbol.Missing, args ?? ImmutableList<INode>.Empty, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style, Lenpai.Missing);
+            => new CallNode(symbol ?? Symbol.Missing, args ?? ImmutableList<INode>.Empty, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style);
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INode Literal(object? value, Symbol? type = null, ImmutableList<INode>? attrs = null, CodeRange? range = null, NodeStyle style = NodeStyle.Default)
-            => new LiteralNode(value, type ?? Symbol.Missing, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style, Lenpai.Missing);
+            => new LiteralNode(value, type ?? Symbol.Missing, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style);
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INode Identifier(Symbol symbol, ImmutableList<INode>? attrs = null, CodeRange? range = null, NodeStyle style = NodeStyle.Default)
-            => new IdentifierNode(symbol, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style, Lenpai.Missing);
+            => new IdentifierNode(symbol, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ImmutableList<INode> List(params INode[] args) => ImmutableList.CreateRange(args);
