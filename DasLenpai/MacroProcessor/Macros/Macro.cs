@@ -3,18 +3,19 @@ using DasLenpai.NodeSystem.Nodes;
 
 namespace DasLenpai.MacroProcessor.Macros
 {
-    public readonly struct CallMacro : IMacro
+    public readonly struct Macro : IMacro
     {
-        public MacroKind Kind => MacroKind.Call;
+        public MacroKind Kinds { get; init; }
         public Symbol Symbol { get; init; }
         public bool ReProcess { get; init; }
         public Func<INode, INode> Callback { get; init; }
 
-        internal CallMacro(Symbol symbol, Func<INode, INode> callback, bool reProcess)
+        internal Macro(Symbol symbol, Func<INode, INode> callback, bool reProcess, MacroKind kinds)
         {
             Symbol = symbol;
             Callback = callback;
             ReProcess = reProcess;
+            Kinds = kinds;
         }
     }
 }

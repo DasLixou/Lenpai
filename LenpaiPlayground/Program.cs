@@ -1,5 +1,6 @@
 ﻿using DasLenpai;
 using DasLenpai.CodeAnalysis;
+using DasLenpai.MacroProcessor.Macros;
 using DasLenpai.NodeSystem;
 
 public static class Symbols
@@ -22,14 +23,14 @@ public static class Playground
             ), style: NodeStyle.BinaryOperator);
 
         var proBuilder = Lenpai.MacroProcessor();
-        proBuilder.AddMacro(Lenpai.CallMacro(Symbols.PlusEquals, (node) =>
+        proBuilder.AddMacro(Lenpai.Macro(Symbols.PlusEquals, MacroKind.Call | MacroKind.Literal, (node) =>
         {
             return Lenpai.Call(Symbols.Equalss, 
                 Lenpai.List(node.Args[0], 
                     Lenpai.Call(Symbols.Plus, Lenpai.List(node.Args[0], node.Args[1]), style: NodeStyle.BinaryOperator)
                 ),
                 style: NodeStyle.BinaryOperator);
-        }, false));
+        }));
         var processor = proBuilder.ToProcessor();
 
         var newNode = processor.Process(node);

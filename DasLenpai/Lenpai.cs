@@ -34,12 +34,6 @@ namespace DasLenpai
         public static MacroProcessorBuilder MacroProcessor() => new MacroProcessorBuilder();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IMacro CallMacro(Symbol symbol, Func<INode, INode> callback, bool reProcess) => new CallMacro(symbol, callback, reProcess);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IMacro LiteralMacro(Symbol symbol, Func<INode, INode> callback, bool reProcess) => new LiteralMacro(symbol, callback, reProcess);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IMacro IdentifierMacro(Symbol symbol, Func<INode, INode> callback, bool reProcess) => new IdentifierMacro(symbol, callback, reProcess);
+        public static IMacro Macro(Symbol symbol, MacroKind kinds, Func<INode, INode> callback, bool reProcess = false) => new Macro(symbol, callback, reProcess, kinds);
     }
 }

@@ -5,7 +5,7 @@ namespace DasLenpai.MacroProcessor.Macros
 {
     public interface IMacro
     {
-        public MacroKind Kind { get; }
+        public MacroKind Kinds { get; }
         public virtual Symbol Symbol { get { return null; } }
         /// <summary>
         /// When <code>true</code>, the MacroProcessor will process the result node after processing this node
@@ -14,8 +14,11 @@ namespace DasLenpai.MacroProcessor.Macros
         public Func<INode, INode> Callback { get; }
     }
 
+    [Flags]
     public enum MacroKind : byte
     {
-        Call, Literal, Identifier
+        Call =       0b001,
+        Literal =    0b010,
+        Identifier = 0b100
     }
 }
