@@ -1,7 +1,7 @@
 ﻿using DasLenpai.CodeAnalysis;
 using DasLenpai.NodeSystem.Nodes;
 
-namespace DasLenpai.MacroProcessor.Macros
+namespace DasLenpai.MacroProcessor
 {
     public interface IMacro
     {
@@ -17,8 +17,9 @@ namespace DasLenpai.MacroProcessor.Macros
     [Flags]
     public enum MacroKind : byte
     {
-        Call =       0b001,
-        Literal =    0b010,
-        Identifier = 0b100
+        Call = 0b0001,
+        Literal = 0b0010,
+        Identifier = 0b0100,
+        List = 0b1000,
     }
 }

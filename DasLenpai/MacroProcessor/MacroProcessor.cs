@@ -1,5 +1,4 @@
 ﻿using DasLenpai.CodeAnalysis;
-using DasLenpai.MacroProcessor.Macros;
 using DasLenpai.NodeSystem.Nodes;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
@@ -75,33 +74,22 @@ namespace DasLenpai.MacroProcessor
 
         public void AddMacro(IMacro macro)
         {
-            if (macro.Kinds.HasFlag(MacroKind.Call))
+            TryAdd(macro, MacroKind.Call, NodeKind.Call);
+            TryAdd(macro, MacroKind.Literal, NodeKind.Literal);
+            TryAdd(macro, MacroKind.Identifier, NodeKind.Identifier);
+            TryAdd(macro, MacroKind.List, NodeKind.List);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void TryAdd(IMacro macro, MacroKind mKind, NodeKind nKind)
+        {
+            if (!macro.Kinds.HasFlag(mKind)) return;
+            var request = (nKind, macro.Symbol);
+            if (!Macros.ContainsKey(request))
             {
-                var request = (NodeKind.Call, macro.Symbol);
-                if (!Macros.ContainsKey(request))
-                {
-                    Macros[request] = ImmutableList.CreateBuilder<IMacro>();
-                }
-                Macros[request].Add(macro);
+                Macros[request] = ImmutableList.CreateBuilder<IMacro>();
             }
-            if (macro.Kinds.HasFlag(MacroKind.Literal))
-            {
-                var request = (NodeKind.Literal, macro.Symbol);
-                if (!Macros.ContainsKey(request))
-                {
-                    Macros[request] = ImmutableList.CreateBuilder<IMacro>();
-                }
-                Macros[request].Add(macro);
-            }
-            if (macro.Kinds.HasFlag(MacroKind.Identifier))
-            {
-                var request = (NodeKind.Identifier, macro.Symbol);
-                if (!Macros.ContainsKey(request))
-                {
-                    Macros[request] = ImmutableList.CreateBuilder<IMacro>();
-                }
-                Macros[request].Add(macro);
-            }
+            Macros[request].Add(macro);
         }
 
         public MacroProcessor ToProcessor() => new MacroProcessor(Macros.ToImmutableDictionary(_ => _.Key, _ => _.Value.ToImmutable()));

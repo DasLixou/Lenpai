@@ -1,10 +1,12 @@
 ﻿using DasLenpai.NodeSystem.Nodes;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DasLenpai.NodeSystem
 {
     public static class NodePrinter
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Style(out StringBuilder builder, INode node, Action<StringBuilder> styleCallback)
         {
             builder = new StringBuilder();

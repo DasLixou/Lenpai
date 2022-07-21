@@ -1,6 +1,5 @@
 ﻿using DasLenpai.CodeAnalysis;
 using DasLenpai.MacroProcessor;
-using DasLenpai.MacroProcessor.Macros;
 using DasLenpai.NodeSystem;
 using DasLenpai.NodeSystem.Nodes;
 using System.Collections.Immutable;
@@ -24,6 +23,14 @@ namespace DasLenpai
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static INode Identifier(Symbol symbol, ImmutableList<INode>? attrs = null, CodeRange? range = null, NodeStyle style = NodeStyle.Default)
             => new IdentifierNode(symbol, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static INode ListNode(CodeRange range, params INode[] args)
+            => new ListNode(ImmutableList.CreateRange(args), range);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static INode ListNode(params INode[] args)
+            => new ListNode(ImmutableList.CreateRange(args), CodeRange.Missing);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ImmutableList<INode> List(params INode[] args) => ImmutableList.CreateRange(args);

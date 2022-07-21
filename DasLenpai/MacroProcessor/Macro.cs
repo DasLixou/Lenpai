@@ -1,7 +1,7 @@
 ﻿using DasLenpai.CodeAnalysis;
 using DasLenpai.NodeSystem.Nodes;
 
-namespace DasLenpai.MacroProcessor.Macros
+namespace DasLenpai.MacroProcessor
 {
     public readonly struct Macro : IMacro
     {

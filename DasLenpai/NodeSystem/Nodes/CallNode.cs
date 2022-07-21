@@ -1,6 +1,7 @@
 ﻿using DasLenpai.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace DasLenpai.NodeSystem.Nodes
@@ -37,6 +38,7 @@ namespace DasLenpai.NodeSystem.Nodes
             return builder.ToString();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void _StyleNode(StringBuilder builder)
         {
             if(Style.HasFlag(NodeStyle.Block))

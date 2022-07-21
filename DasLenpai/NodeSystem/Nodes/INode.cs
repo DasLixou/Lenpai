@@ -6,7 +6,7 @@ namespace DasLenpai.NodeSystem.Nodes
     public interface INode
     {
         public NodeKind Kind { get; }
-        public virtual Symbol Symbol { get { return null; } }
+        public virtual Symbol Symbol { get { return Symbol.Missing; } }
         public virtual ImmutableList<INode> Args { get { return ImmutableList<INode>.Empty; } }
         public virtual ImmutableList<INode> Attrs { get { return ImmutableList<INode>.Empty; } }
         public virtual object? Value { get { return null; } }
@@ -30,6 +30,6 @@ namespace DasLenpai.NodeSystem.Nodes
 
     public enum NodeKind: byte
     {
-        Call, Literal, Identifier
+        Call, Literal, Identifier, List
     }
 }

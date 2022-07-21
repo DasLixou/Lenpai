@@ -1,6 +1,6 @@
 ﻿using DasLenpai;
 using DasLenpai.CodeAnalysis;
-using DasLenpai.MacroProcessor.Macros;
+using DasLenpai.MacroProcessor;
 using DasLenpai.NodeSystem;
 
 public static class Symbols
@@ -19,7 +19,7 @@ public static class Playground
     public static void Main()
     {
         var node = Lenpai.Call(Symbols.PlusEquals, Lenpai.List(
-            Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt)
+            Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt), Lenpai.ListNode(Lenpai.Missing)
             ), style: NodeStyle.BinaryOperator);
 
         var proBuilder = Lenpai.MacroProcessor();
