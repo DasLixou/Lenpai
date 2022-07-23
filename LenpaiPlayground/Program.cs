@@ -1,7 +1,6 @@
-﻿using DasLenpai;
-using DasLenpai.CodeAnalysis;
-using DasLenpai.MacroProcessor;
-using DasLenpai.NodeSystem;
+﻿using Lenpai.CodeAnalysis;
+using Lenpai.MacroProcessor;
+using Lenpai.NodeSystem;
 
 public static class Symbols
 {
@@ -18,8 +17,8 @@ public static class Playground
 {
     public static void Main()
     {
-        var node = Lenpai.Call(Symbols.PlusEquals, Lenpai.List(
-            Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt), Lenpai.ListNode(Lenpai.Missing)
+        var node = Node.Call(Symbols.PlusEquals, Node.List(
+            Node.Identifier("sheee"), Node.Literal(12, Symbols.UInt), Node.ListNode(Node.Missing)
             ), style: NodeStyle.BinaryOperator);
 
         var isPlusEquals = node switch
@@ -28,12 +27,12 @@ public static class Playground
             _ => false
         };
 
-        var proBuilder = Lenpai.MacroProcessor();
-        proBuilder.AddMacro(Lenpai.Macro(Symbols.PlusEquals, MacroKind.Call | MacroKind.Literal, (node) =>
+        var proBuilder = Macro.Processor();
+        proBuilder.AddMacro(Macro.Create(Symbols.PlusEquals, MacroKind.Call | MacroKind.Literal, (node) =>
         {
-            return Lenpai.Call(Symbols.Equalss, 
-                Lenpai.List(node.Args[0], 
-                    Lenpai.Call(Symbols.Plus, Lenpai.List(node.Args[0], node.Args[1]), style: NodeStyle.BinaryOperator)
+            return Node.Call(Symbols.Equalss,
+                Node.List(node.Args[0],
+                    Node.Call(Symbols.Plus, Node.List(node.Args[0], node.Args[1]), style: NodeStyle.BinaryOperator)
                 ),
                 style: NodeStyle.BinaryOperator);
         }));

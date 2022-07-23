@@ -1,16 +1,16 @@
-﻿using DasLenpai.CodeAnalysis;
-using DasLenpai.NodeSystem.Nodes;
+﻿using Lenpai.CodeAnalysis;
+using Lenpai.NodeSystem.Nodes;
 
-namespace DasLenpai.MacroProcessor
+namespace Lenpai.MacroProcessor
 {
-    public readonly struct Macro : IMacro
+    public readonly struct MacroImpl : IMacro
     {
         public MacroKind Kinds { get; init; }
         public Symbol Symbol { get; init; }
         public bool ReProcess { get; init; }
         public Func<INode, INode> Callback { get; init; }
 
-        internal Macro(Symbol symbol, Func<INode, INode> callback, bool reProcess, MacroKind kinds)
+        internal MacroImpl(Symbol symbol, Func<INode, INode> callback, bool reProcess, MacroKind kinds)
         {
             Symbol = symbol;
             Callback = callback;

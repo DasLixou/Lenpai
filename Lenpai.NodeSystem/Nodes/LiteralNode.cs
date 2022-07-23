@@ -1,10 +1,10 @@
-﻿using DasLenpai.CodeAnalysis;
+﻿using Lenpai.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace DasLenpai.NodeSystem.Nodes
+namespace Lenpai.NodeSystem.Nodes
 {
     [DebuggerDisplay("{ToString(),nq}")]
     public sealed class LiteralNode : INode

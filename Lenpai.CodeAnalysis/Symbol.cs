@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace DasLenpai.CodeAnalysis
+namespace Lenpai.CodeAnalysis
 {
     [DebuggerDisplay("{Name,nq}")]
     public readonly struct Symbol : IEquatable<Symbol>

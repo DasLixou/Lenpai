@@ -1,7 +1,7 @@
-﻿using DasLenpai.CodeAnalysis;
-using DasLenpai.NodeSystem.Nodes;
+﻿using Lenpai.CodeAnalysis;
+using Lenpai.NodeSystem.Nodes;
 
-namespace DasLenpai.MacroProcessor
+namespace Lenpai.MacroProcessor
 {
     public interface IMacro
     {

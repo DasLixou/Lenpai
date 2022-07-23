@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>DasLenpai</PackageId>
-    <Version>1.0.1</Version>
+    <PackageId>Lenpai.NodeSystem</PackageId>
+    <Version>1.0.0</Version>
     <Description>stupidly simple and fast utils for parsing</Description>
     <Authors>DasLixou</Authors>
     <RepositoryUrl>https://github.com/DasLixou/Lenpai</RepositoryUrl>
+    <PackageTags>Parser;AST;NodeSystem</PackageTags>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -18,5 +19,9 @@
     <DeterministicSourcePaths>true</DeterministicSourcePaths>
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lenpai.CodeAnalysis\Lenpai.CodeAnalysis.csproj" />
+  </ItemGroup>
 
 </Project>

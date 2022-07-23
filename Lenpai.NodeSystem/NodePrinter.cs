@@ -1,8 +1,8 @@
-﻿using DasLenpai.NodeSystem.Nodes;
+﻿using Lenpai.NodeSystem.Nodes;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace DasLenpai.NodeSystem
+namespace Lenpai.NodeSystem
 {
     public static class NodePrinter
     {

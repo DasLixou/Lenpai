@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace DasLenpai.CodeAnalysis
+namespace Lenpai.CodeAnalysis
 {
     [DebuggerDisplay("{From} - {To}")]
     public readonly record struct CodeRange(CodePosition From, CodePosition To)

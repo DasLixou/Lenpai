@@ -1,4 +1,4 @@
-﻿namespace DasLenpai.NodeSystem
+﻿namespace Lenpai.NodeSystem
 {
     [Flags]
     public enum NodeStyle : byte

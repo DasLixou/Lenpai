@@ -1,8 +1,8 @@
-﻿using DasLenpai.CodeAnalysis;
+﻿using Lenpai.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Diagnostics;
 
-namespace DasLenpai.NodeSystem.Nodes
+namespace Lenpai.NodeSystem.Nodes
 {
     [DebuggerDisplay("{ToString(),nq}")]
     public sealed class ListNode : INode

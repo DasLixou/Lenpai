@@ -1,7 +1,7 @@
-﻿using DasLenpai.CodeAnalysis;
+﻿using Lenpai.CodeAnalysis;
 using System.Collections.Immutable;
 
-namespace DasLenpai.NodeSystem.Nodes
+namespace Lenpai.NodeSystem.Nodes
 {
     public interface INode
     {

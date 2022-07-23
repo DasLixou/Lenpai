@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
-namespace DasLenpai.CodeAnalysis
+namespace Lenpai.CodeAnalysis
 {
     [DebuggerDisplay("{ToString(),nq}")]
     public readonly record struct CodePosition(uint Line, uint Column)

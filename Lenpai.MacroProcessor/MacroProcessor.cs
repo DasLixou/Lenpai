@@ -1,9 +1,9 @@
-﻿using DasLenpai.CodeAnalysis;
-using DasLenpai.NodeSystem.Nodes;
+﻿using Lenpai.CodeAnalysis;
+using Lenpai.NodeSystem.Nodes;
 using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
-namespace DasLenpai.MacroProcessor
+namespace Lenpai.MacroProcessor
 {
     public class MacroProcessor
     {
