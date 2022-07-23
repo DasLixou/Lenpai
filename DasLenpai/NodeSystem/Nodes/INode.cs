@@ -14,6 +14,14 @@ namespace DasLenpai.NodeSystem.Nodes
         public virtual CodeRange Range { get { return CodeRange.Missing; } }
         public virtual NodeStyle Style { get { return NodeStyle.Default; } }
 
+        public virtual void Deconstruct(out string symbol, out ImmutableList<INode> args, out ImmutableList<INode> attrs, out object? value)
+        {
+            symbol = Symbol.ToString();
+            args = Args;
+            attrs = Attrs;
+            value = Value;
+        }
+
         public virtual INode WithSymbol(Symbol symbol) { return this; }
         public virtual INode WithArgs(ImmutableList<INode> args) { return this; }
         public virtual INode PlusArgs(ImmutableList<INode> args) { return WithArgs(Args.AddRange(args)); }

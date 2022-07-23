@@ -22,6 +22,12 @@ public static class Playground
             Lenpai.Identifier("sheee"), Lenpai.Literal(12, Symbols.UInt), Lenpai.ListNode(Lenpai.Missing)
             ), style: NodeStyle.BinaryOperator);
 
+        var isPlusEquals = node switch
+        {
+            ("'+=", _, _, _) => true,
+            _ => false
+        };
+
         var proBuilder = Lenpai.MacroProcessor();
         proBuilder.AddMacro(Lenpai.Macro(Symbols.PlusEquals, MacroKind.Call | MacroKind.Literal, (node) =>
         {
