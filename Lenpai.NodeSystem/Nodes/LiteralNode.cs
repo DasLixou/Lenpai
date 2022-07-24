@@ -10,11 +10,11 @@ namespace Lenpai.NodeSystem.Nodes
     public sealed class LiteralNode : INode
     {
         public NodeKind Kind => NodeKind.Literal;
-        public object? Value { get; }
-        public Symbol Symbol { get; }
-        public ImmutableList<INode> Attrs { get; }
-        public CodeRange Range { get; }
-        public NodeStyle Style { get; }
+        public object? Value { get; init; }
+        public Symbol Symbol { get; init; }
+        public ImmutableList<INode> Attrs { get; init; }
+        public CodeRange Range { get; init; }
+        public NodeStyle Style { get; init; }
 
         internal LiteralNode(object? value, Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style)
         {

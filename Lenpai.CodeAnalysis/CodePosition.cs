@@ -15,11 +15,25 @@ namespace Lenpai.CodeAnalysis
             return left.Column <= right.Column;
         }
 
+        public static bool operator <(CodePosition left, CodePosition right)
+        {
+            if (left.Line < right.Line) return true;
+            if (left.Line > right.Line) return false;
+            return left.Column < right.Column;
+        }
+
         public static bool operator >=(CodePosition left, CodePosition right)
         {
             if (left.Line > right.Line) return true;
             if (left.Line < right.Line) return false;
             return left.Column >= right.Column;
+        }
+
+        public static bool operator >(CodePosition left, CodePosition right)
+        {
+            if (left.Line > right.Line) return true;
+            if (left.Line < right.Line) return false;
+            return left.Column > right.Column;
         }
 
         public override string ToString()

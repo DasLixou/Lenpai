@@ -10,11 +10,11 @@ namespace Lenpai.NodeSystem.Nodes
     public sealed class CallNode : INode
     {
         public NodeKind Kind => NodeKind.Call;
-        public Symbol Symbol { get; }
-        public ImmutableList<INode> Args { get; }
-        public ImmutableList<INode> Attrs { get; }
-        public CodeRange Range { get; }
-        public NodeStyle Style { get; }
+        public Symbol Symbol { get; init; }
+        public ImmutableList<INode> Args { get; init; }
+        public ImmutableList<INode> Attrs { get; init; }
+        public CodeRange Range { get; init; }
+        public NodeStyle Style { get; init; }
 
         internal CallNode(Symbol symbol, ImmutableList<INode> args, ImmutableList<INode> attrs, CodeRange range, NodeStyle style)
         {

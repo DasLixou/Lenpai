@@ -10,10 +10,10 @@ namespace Lenpai.NodeSystem.Nodes
     public sealed class IdentifierNode : INode
     {
         public NodeKind Kind => NodeKind.Identifier;
-        public Symbol Symbol { get; }
-        public ImmutableList<INode> Attrs { get; }
-        public CodeRange Range { get; }
-        public NodeStyle Style { get; }
+        public Symbol Symbol { get; init; }
+        public ImmutableList<INode> Attrs { get; init; }
+        public CodeRange Range { get; init; }
+        public NodeStyle Style { get; init; }
 
         internal IdentifierNode(Symbol type, ImmutableList<INode> attrs, CodeRange range, NodeStyle style)
         {

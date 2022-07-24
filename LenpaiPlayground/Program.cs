@@ -1,6 +1,7 @@
 ﻿using Lenpai.CodeAnalysis;
 using Lenpai.MacroProcessor;
 using Lenpai.NodeSystem;
+using Lenpai.NodeSystem.Nodes;
 
 public static class Symbols
 {
@@ -18,12 +19,15 @@ public static class Playground
     public static void Main()
     {
         var node = Node.Call(Symbols.PlusEquals, Node.List(
-            Node.Identifier("sheee"), Node.Literal(12, Symbols.UInt), Node.ListNode(Node.Missing)
+            Node.Identifier("sheee"), Node.Literal(12, Symbols.UInt), Node.ListNode(
+                Node.Missing.WithRange(new CodeRange(new CodePosition(1, 1), new CodePosition(1, 3))),
+                Node.Missing.WithRange(new CodeRange(new CodePosition(2, 5), new CodePosition(2, 8)))
+                )
             ), style: NodeStyle.BinaryOperator);
 
         var isPlusEquals = node switch
         {
-            ("'+=", _, _, _) => true,
+            ("'+=", [_, var lhs, var rhs, ..], _, _) when lhs.Kind == NodeKind.Literal => true,
             _ => false
         };
 

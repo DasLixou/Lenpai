@@ -5,11 +5,11 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LenpaiPlayground", "LenpaiPlayground\LenpaiPlayground.csproj", "{F02A8629-7B96-4715-AB46-7CCE59F0FB58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lenpai.CodeAnalysis", "Lenpai.CodeAnalysis\Lenpai.CodeAnalysis.csproj", "{40F6FDF2-83F0-4569-8BAE-F9F16FF11369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lenpai.CodeAnalysis", "Lenpai.CodeAnalysis\Lenpai.CodeAnalysis.csproj", "{40F6FDF2-83F0-4569-8BAE-F9F16FF11369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lenpai.MacroProcessor", "Lenpai.MacroProcessor\Lenpai.MacroProcessor.csproj", "{CB0EFC1F-C160-43B8-BABA-56159D6DAE4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lenpai.MacroProcessor", "Lenpai.MacroProcessor\Lenpai.MacroProcessor.csproj", "{CB0EFC1F-C160-43B8-BABA-56159D6DAE4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lenpai.NodeSystem", "Lenpai.NodeSystem\Lenpai.NodeSystem.csproj", "{7913DC06-5112-43BF-88D8-FD9EA8C3488D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lenpai.NodeSystem", "Lenpai.NodeSystem\Lenpai.NodeSystem.csproj", "{7913DC06-5112-43BF-88D8-FD9EA8C3488D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
