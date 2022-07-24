@@ -18,7 +18,15 @@
     <Deterministic>true</Deterministic>
     <DeterministicSourcePaths>true</DeterministicSourcePaths>
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    <PackageIcon>LenpaiLogo256.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LenpaiLogo256.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Lenpai.CodeAnalysis\Lenpai.CodeAnalysis.csproj" />
