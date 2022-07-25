@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Lenpai.CodeAnalysis</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>stupidly simple and fast utils for parsing</Description>
     <Authors>DasLixou</Authors>
     <RepositoryUrl>https://github.com/DasLixou/Lenpai</RepositoryUrl>

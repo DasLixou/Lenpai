@@ -1,4 +1,4 @@
-![Lenpai](LenpaiText.png)
+![Lenpai](https://raw.githubusercontent.com/DasLixou/Lenpai/main/LenpaiText.png)
 
 stupidly simple and fast utils for parsing
 
