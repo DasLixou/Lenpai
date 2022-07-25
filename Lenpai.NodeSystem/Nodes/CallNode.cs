@@ -21,7 +21,7 @@ namespace Lenpai.NodeSystem.Nodes
             Symbol = symbol;
             Args = args;
             Attrs = attrs;
-            Range = range;
+            Range = range == CodeRange.Missing ? INode.calcRange(args) : range;
             Style = style;
         }
 

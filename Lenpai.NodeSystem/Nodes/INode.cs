@@ -34,6 +34,14 @@ namespace Lenpai.NodeSystem.Nodes
         public virtual INode WithRange(CodeRange range) { return this; }
         public virtual INode WithStyle(NodeStyle style) { return this; }
         public virtual INode PlusStyle(NodeStyle style) { return WithStyle(Style | style); }
+
+        protected static CodeRange calcRange(ImmutableList<INode> args)
+        {
+            if (!args.Any()) return CodeRange.Missing;
+            var range = args[0].Range;
+            foreach (var arg in args) { range = range.Expand(arg.Range); }
+            return range;
+        }
     }
 
     public enum NodeKind: byte
