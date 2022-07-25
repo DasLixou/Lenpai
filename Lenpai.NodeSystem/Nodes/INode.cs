@@ -25,10 +25,16 @@ namespace Lenpai.NodeSystem.Nodes
         public virtual INode WithSymbol(Symbol symbol) { return this; }
         public virtual INode WithArgs(ImmutableList<INode> args) { return this; }
         public virtual INode PlusArgs(ImmutableList<INode> args) { return WithArgs(Args.AddRange(args)); }
+        public virtual INode WithArgsAt(int index, ImmutableList<INode> args) { return WithArgs(Args.InsertRange(index, args)); }
         public virtual INode PlusArg(INode arg) { return WithArgs(Args.Add(arg)); }
+        public virtual INode WithArgAt(int index, INode arg) { return WithArgs(Args.Insert(index, arg)); }
+        public virtual INode ReplaceArgAt(int index, Func<INode, INode> arg) { return WithArgs(Args.SetItem(index, arg(Args[index]))); }
         public virtual INode WithAttrs(ImmutableList<INode> attrs) { return this; }
         public virtual INode PlusAttrs(ImmutableList<INode> attrs) { return WithAttrs(Attrs.AddRange(attrs)); }
+        public virtual INode WithAttrsAt(int index, ImmutableList<INode> attrs) { return WithAttrs(Attrs.InsertRange(index, attrs)); }
         public virtual INode PlusAttr(INode attr) { return WithAttrs(Attrs.Add(attr)); }
+        public virtual INode WithAttrAt(int index, INode attr) { return WithAttrs(Attrs.Insert(index, attr)); }
+        public virtual INode ReplaceAttrAt(int index, Func<INode, INode> attr) { return WithAttrs(Attrs.SetItem(index, attr(Attrs[index]))); }
         public virtual INode WithValue(object? value) { return this; }
         public virtual INode WithType(Symbol type) { return WithSymbol(type); }
         public virtual INode WithRange(CodeRange range) { return this; }
