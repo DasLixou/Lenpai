@@ -38,6 +38,8 @@ namespace Lenpai.NodeSystem.Nodes
         public virtual INode WithValue(object? value) { return this; }
         public virtual INode WithType(Symbol type) { return WithSymbol(type); }
         public virtual INode WithRange(CodeRange range) { return this; }
+        public virtual INode ExpandRange(CodeRange range) { return WithRange(Range.Expand(range)); }
+        public virtual INode ExpandRange(CodePosition position) { return WithRange(Range.Expand(position)); }
         public virtual INode WithStyle(NodeStyle style) { return this; }
         public virtual INode PlusStyle(NodeStyle style) { return WithStyle(Style | style); }
 
