@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Lenpai.NodeSystem</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Description>stupidly simple and fast utils for parsing</Description>
     <Authors>DasLixou</Authors>
     <RepositoryUrl>https://github.com/DasLixou/Lenpai</RepositoryUrl>
