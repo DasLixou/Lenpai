@@ -11,6 +11,7 @@ namespace Lenpai.NodeSystem.Nodes
         public virtual ImmutableList<INode> Attrs { get { return ImmutableList<INode>.Empty; } }
         public virtual object? Value { get { return null; } }
         public virtual Symbol Type { get { return Symbol; } }
+        public virtual string Name { get { return Symbol.Name; } }
         public virtual CodeRange Range { get { return CodeRange.Missing; } }
         public virtual NodeStyle Style { get { return NodeStyle.Default; } }
 

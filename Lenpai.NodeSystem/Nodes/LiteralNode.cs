@@ -56,7 +56,13 @@ namespace Lenpai.NodeSystem.Nodes
 
         private void _Value(StringBuilder builder)
         {
-            if(Value == null)
+            var singleQuote = Style.HasFlag(NodeStyle.SingleQuote);
+            var doubleQuote = Style.HasFlag(NodeStyle.DoubleQuote);
+            
+            if (singleQuote) builder.Append('\'');
+            if (doubleQuote) builder.Append('"');
+
+            if (Value == null)
             {
                 builder.Append("null");
             } else if(Style.HasFlag(NodeStyle.Binary))
@@ -71,6 +77,9 @@ namespace Lenpai.NodeSystem.Nodes
             {
                 builder.Append(Value.ToString());
             }
+
+            if (singleQuote) builder.Append('\'');
+            if (doubleQuote) builder.Append('"');
         }
     }
 }
