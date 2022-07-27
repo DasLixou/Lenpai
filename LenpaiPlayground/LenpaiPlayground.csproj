@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lenpai.MacroProcessor\Lenpai.MacroProcessor.csproj" />
+    <ProjectReference Include="..\Lenpai.Utils\Lenpai.Utils.csproj" />
   </ItemGroup>
 
 </Project>

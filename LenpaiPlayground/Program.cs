@@ -2,6 +2,7 @@
 using Lenpai.MacroProcessor;
 using Lenpai.NodeSystem;
 using Lenpai.NodeSystem.Nodes;
+using Lenpai.Utils;
 
 public static class Symbols
 {
@@ -18,8 +19,8 @@ public static class Playground
 {
     public static void Main()
     {
-        var node = Node.Call(Symbols.PlusEquals, Node.List(
-            Node.Identifier("sheee"), Node.Literal(12, Symbols.UInt), Node.ListNode(
+        var node = Node.Call(Symbols.PlusEquals, LUtils.List(
+            Node.Identifier("sheee"), Node.Literal(12, Symbols.UInt), Node.List(
                 Node.Missing.WithRange(new CodeRange(new CodePosition(1, 1), new CodePosition(1, 3))),
                 Node.Missing.WithRange(new CodeRange(new CodePosition(2, 5), new CodePosition(2, 8)))
                 )
@@ -35,8 +36,8 @@ public static class Playground
         proBuilder.AddMacro(Macro.Create(Symbols.PlusEquals, MacroKind.Call | MacroKind.Literal, (node) =>
         {
             return Node.Call(Symbols.Equalss,
-                Node.List(node.Args[0],
-                    Node.Call(Symbols.Plus, Node.List(node.Args[0], node.Args[1]), style: NodeStyle.BinaryOperator)
+                LUtils.List(node.Args[0],
+                    Node.Call(Symbols.Plus, LUtils.List(node.Args[0], node.Args[1]), style: NodeStyle.BinaryOperator)
                 ),
                 style: NodeStyle.BinaryOperator);
         }));

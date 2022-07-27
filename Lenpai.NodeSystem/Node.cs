@@ -22,14 +22,15 @@ namespace Lenpai.NodeSystem
             => new IdentifierNode(symbol, attrs ?? ImmutableList<INode>.Empty, range ?? CodeRange.Missing, style);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static INode ListNode(params INode[] args)
+        public static INode List(params INode[] args)
             => new ListNode(ImmutableList.CreateRange(args));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static INode ListNode(ImmutableList<INode>? args)
+        public static INode List(ImmutableList<INode>? args)
             => new ListNode(args ?? ImmutableList<INode>.Empty);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ImmutableList<INode> List(params INode[] args) => ImmutableList.CreateRange(args);
+        public static INode List(ImmutableList<INode>.Builder? args)
+            => new ListNode(args == null ? ImmutableList<INode>.Empty : args.ToImmutable());
     }
 }
